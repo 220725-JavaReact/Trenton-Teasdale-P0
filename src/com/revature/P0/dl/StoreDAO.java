@@ -13,6 +13,14 @@ public class StoreDAO implements DAO<Store>{
 	public ArrayList<Store> getAllInstances(){
 		return TempStorage.stores;
 	}
+	public Store getInstance(String name) {
+		for(Store store : TempStorage.stores) {
+			if (store.name.equals(name)) {
+				return store;
+			}
+		}
+		return null;
+	}
 	public void updateStore(Store store) {
 		for(int i=0;i<TempStorage.stores.size();i++) {
 			Store savedStore = TempStorage.stores.get(i);
@@ -20,5 +28,15 @@ public class StoreDAO implements DAO<Store>{
 				TempStorage.stores.set(i, store);
 			}
 		}
+	}
+	@Override
+	public Store getByName(String Name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void updateInstance(Store updatedInstance) {
+		// TODO Auto-generated method stub
+		
 	}
 }

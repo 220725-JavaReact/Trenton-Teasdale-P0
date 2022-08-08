@@ -14,5 +14,15 @@ public class ProductDAO {
 		public ArrayList<Product> getAllInstances(){
 			return TempStorage.products;
 		}
+		@Override
+		public Product getByName(String Name) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public void updateInstance(Product updatedInstance) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }

@@ -11,6 +11,16 @@ public class Customer {
 	private String email;
 	private int number;
 	public ArrayList<Order> orders = new ArrayList<>();
+	public Customer() {
+	
+	}
+	public Customer(String string, String address, String email, int number) {
+		// TODO Auto-generated constructor stub
+		this.name=string;
+		this.setAddress(address);
+		this.setEmail(email);
+		this.setNumber(number);
+	}
 	public String getAddress() {
 		return address;
 	}
@@ -39,11 +49,10 @@ public class Customer {
 	public static Customer customerSignIn(Scanner scanner,DAO<Customer> customerDAO) {
 		System.out.println("What is your email");
 		String email = scanner.nextLine();
-		for(Customer cust: customerDAO.getAllInstances()) {
+		Customer cust= customerDAO.getByName(email);
 			if(email.equals(cust.email)) {
 				return cust;
 			}
-		}
 		System.out.println("No match found");
 		return null;
 }
@@ -67,12 +76,12 @@ public class Customer {
 		System.out.println("Customer Added");
 		return customer;
 	}
-	public static void trenton(DAO<Customer> customerDAO) {
-		Customer tre = new Customer();
-		tre.name = "Trenton";
-		tre.address = "123 Street";
-		tre.email = "email";
-		tre.number = 801;
-		customerDAO.addInstance(tre);
-	}
+//	public static void trenton(DAO<Customer> customerDAO) {
+//		Customer tre = new Customer();
+//		tre.name = "Trenton";
+//		tre.address = "123 Street";
+//		tre.email = "email";
+//		tre.number = 801;
+//		customerDAO.addInstance(tre);
+//	}
 }

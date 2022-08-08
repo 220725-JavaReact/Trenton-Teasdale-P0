@@ -4,7 +4,27 @@ public class Product {
 	public String name;
 	private double price;
 	private int quantity;
+	private int storeId;
+	private int productId;
 	
+	public Product(String name, double price, int quantity, int storeId, int productId) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.setProductId(productId);
+		this.storeId = storeId;
+	}
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+	public Product(String name, double price, int quantity, int productId) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.setProductId(productId);
+	}
 	public double getPrice() {
 		return price;
 	}
@@ -23,7 +43,19 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [name=" + name + ", price=" + price + ", quantity=" + quantity + "]";
+		return "Product [Name= " + name + ", Price= " + price + ", Quantity= " + quantity + "]";
+	}
+	public int getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 	
 }

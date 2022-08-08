@@ -7,10 +7,24 @@ public class Order {
 	public double totalCost;
 	public String customerName;
 	public int orderNumber;
+	public int storeId;
 	public ArrayList<Product> items = new ArrayList<>();
 	
+	public Order(int orderNumber, double totalCost, String customerName, String storeName, int storeId) {
+		// TODO Auto-generated constructor stub
+		this.orderNumber = orderNumber;
+		this.totalCost = totalCost;
+		this.customerName = customerName;
+		this.storeName = storeName;
+		this.storeId = storeId;
+	}
+
+	public Order() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
-		return "Order [Order Number=" + orderNumber + ", Total Cost=" + totalCost + ", Location=" + storeName + "]";
+		return "\nOrder [Order Number=" + orderNumber + ", Customer="+ customerName +", Total Cost=" + totalCost + ", Location=" + storeName + "\n\t" +items +"]";
 	}
 }
