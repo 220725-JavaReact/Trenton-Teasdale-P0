@@ -2,8 +2,12 @@ package com.revature.P0.models;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import com.revature.P0.dl.DAO;
+
+import exceptions.InvalidEmailException;
+import exceptions.InvalidNumberException;
 
 public class Customer {
 	public String name;
@@ -31,7 +35,11 @@ public class Customer {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		String regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+		Pattern pattern = Pattern.compile(regex);
+		if(!pattern.matcher(email).matches()) throw new InvalidEmailException("Invalid Email - try again");
+			this.email = email;
+		
 	}
 	public int getNumber() {
 		return number;

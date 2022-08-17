@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.revature.P0.bl.totalOrder;
 import com.revature.P0.dl.CustomerDBDAO;
 import com.revature.P0.dl.DAO;
 import com.revature.P0.dl.OrderDBDAO;
@@ -35,6 +36,14 @@ public class Menu {
 // commented out as they are already created 
 //		Store.sampleStore(storeDAO);
 		System.out.println("Welcome to Joja Mart Co!");
+		System.out.println("\n"
+				+ "       __        _       __  ___           __ \n"
+				+ "      / /___    (_)___ _/  |/  /___ ______/ /_\n"
+				+ " __  / / __ \\  / / __ `/ /|_/ / __ `/ ___/ __/\n"
+				+ "/ /_/ / /_/ / / / /_/ / /  / / /_/ / /  / /_  \n"
+				+ "\\____/\\____/_/ /\\__,_/_/  /_/\\__,_/_/   \\__/  \n"
+				+ "          /___/                               \n"
+				+ "");
 		do {
 			System.out.println("[1] Sign in as admin");
 			System.out.println("[2] Sign in as customer");
@@ -167,7 +176,7 @@ public class Menu {
 			} else if (userInput.equals("c")) {
 				choice = "c";
 				userInput="x";
-			} 
+			}
 			switch(choice) {
 			case "x": 
 				System.out.println("Thank you for choosing Joja Mart...");
@@ -201,8 +210,31 @@ public class Menu {
 							addToCart(userInput, selectedStore);
 						}
 					}
-					System.out.println("Items in cart \n"+cart);
-					System.out.println("Added to cart");
+					println();
+					System.out.println("Items in cart");
+					ArrayList<Product> inCart = new ArrayList<>();
+					for(int i=0;i<cart.size();i++) {
+//						System.out.println(cart.get(i).name);
+						boolean match = false;
+						for(int j=0;j<inCart.size();j++) {
+							if(inCart.get(j).name.equals(cart.get(i).name)) {
+								int quantity = inCart.get(j).getQuantity();
+								inCart.get(j).setQuantity(quantity +1);
+								inCart.get(j).setPrice((quantity+1) *cart.get(i).getPrice());
+								match = true;
+								break;
+							}
+						}
+						if(!match) {
+							Product prod = new Product();
+							prod.name = cart.get(i).name;
+							prod.setPrice(cart.get(i).getPrice());
+							prod.setQuantity(1);
+							inCart.add(prod);
+						}
+
+					}
+					System.out.println("Added to cart\n"+inCart);
 					Store.storeMenu(selectedStore);
 				}
 				choice="";
@@ -228,12 +260,13 @@ public class Menu {
 			order.customerName = validCust.name;
 			order.items = cart;
 			order.storeName = selectedStore.name;
-			double totalPrice = 0;
-			for(Product item : cart) {
-				totalPrice += item.getPrice();
-				productDAO.updateInstance(item);
-			}
-			order.totalCost = totalPrice;
+//			double totalPrice = 0;
+//			for(Product item : cart) {
+//				totalPrice += item.getPrice();
+//				productDAO.updateInstance(item);
+//			}
+//			order.totalCost = totalPrice;
+			order.totalCost = totalOrder.total(cart,productDAO);
 			Random random = new Random();
 			String id = String.format("%04d", random.nextInt(10000));
 			order.orderNumber = Integer.parseInt(id);

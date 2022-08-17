@@ -2,6 +2,8 @@ package com.revature.P0.models;
 
 import java.util.ArrayList;
 
+import com.revature.P0.dl.DAO;
+
 public class Order {
 	public String storeName;
 	public double totalCost;

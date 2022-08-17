@@ -6,7 +6,6 @@ import java.util.Scanner;
 import com.revature.P0.dl.DAO;
 import com.revature.P0.dl.OrderDBDAO;
 import com.revature.P0.dl.ProductDBDAO;
-import com.revature.P0.dl.StoreDBDAO;
 import com.revature.P0.models.Order;
 import com.revature.P0.models.Product;
 import com.revature.P0.models.Store;
@@ -39,7 +38,7 @@ public class Admin {
 					}
 					break;
 				case "x":
-					System.out.println("Exiting Admin Menu");
+					System.out.println("Exiting Admin Menu....");
 					break;
 				default: 
 					System.out.println("Wrong input. try again, please choose an option.");
@@ -51,6 +50,7 @@ public class Admin {
 	}
 	public static void manageStore(Scanner scanner, Store store) {
 		DAO<Product> productDAO = new ProductDBDAO();
+		DAO<Order> orderDAO = new OrderDBDAO();
 		userInput = "";
 		do {
 			store.prods.clear();
@@ -59,6 +59,7 @@ public class Admin {
 			System.out.println("[1] Add product");
 			System.out.println("[2] Remove product");
 			System.out.println("[3] Update inventory");
+			System.out.println("[4] View Orders at this store");
 			System.out.println("[x] Exit");
 			
 			userInput= scanner.nextLine();
@@ -84,6 +85,10 @@ public class Admin {
 				}
 				System.out.println("[x] Exit");
 				userInput = scanner.nextLine();
+				if(userInput.equals("x")) {
+					userInput="";
+					break;
+				}
 				((ProductDBDAO) productDAO).removeInstance(store.prods.get(Integer.parseInt(userInput)-1));
 				store.prods.remove(Integer.parseInt(userInput)-1);
 				System.out.println("Item Removed");
@@ -92,7 +97,12 @@ public class Admin {
 			case "3":
 				System.out.println("Select a product to update");
 				for(int i=0;i<store.prods.size();i++) {
-					System.out.println("["+(i+1)+"] "+ store.prods.get(i).name);
+					System.out.println("["+(i+1)+"] "+ store.prods.get(i).toString());
+				}
+				System.out.println("[x] Exit");
+				if(scanner.nextLine().equals("x")) {
+						userInput="";
+						break;
 				}
 				Product product = productDAO.getByName(store.prods.get(scanner.nextInt()-1).name);
 				scanner.nextLine();
@@ -108,6 +118,16 @@ public class Admin {
 				scanner.nextLine();
 				productDAO.updateInstance(product);
 				System.out.println("Product Updated");
+				break;
+			case "4":
+				ArrayList<Order> orders = ((OrderDBDAO) orderDAO).getAllByStore(store.name);
+				if(orders.size() > 0) {
+					for(Order order : orders) {
+						System.out.println(order);
+					}	
+				} else {
+					System.out.println("No active orders");
+				}
 				break;
 			case "x":
 				System.out.println("Exiting Admin Menu....");
