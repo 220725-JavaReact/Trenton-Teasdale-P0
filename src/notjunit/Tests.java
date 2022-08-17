@@ -31,6 +31,11 @@ public class Tests {
 		Product product = new Product();
 		Assert.willThrow(InvalidNumberException.class, () -> product.setPrice(-1));
 	}
+	@Test void set_product_name() {
+		Product prod = new Product();
+		prod.name = "Rocks";
+		Assert.equals(prod.name, "Rocks");
+	}
 	@Test 
 	public void set_quantity() {
 		Product product = new Product();
@@ -41,6 +46,12 @@ public class Tests {
 	public void set_Quantity_Fail() {
 		Product product = new Product();
 		Assert.willThrow(InvalidNumberException.class, () -> product.setPrice(-1));
+	}
+	@Test
+	public void customer_name() {
+		Customer cust = new Customer();
+		cust.name = "Rocks";
+		Assert.equals(cust.name, "Rocks");
 	}
 	@Test
 	public void new_Customer_valid_Email() {

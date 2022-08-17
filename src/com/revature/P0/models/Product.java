@@ -38,7 +38,7 @@ public class Product {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
-		if(quantity <= 0 ) throw new InvalidNumberException("You cannot set this value to negative numbers or below 0");
+		if(quantity < 0 ) throw new InvalidNumberException("You cannot set this value to negative numbers or below 0");
 		this.quantity = quantity;
 	}
 	public void name(String string) {
